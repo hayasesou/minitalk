@@ -6,9 +6,9 @@
 void handler(int signum)
 {
 	if (signum == SIGUSR1)
-		write(1,"0",1);
-	else
 		write(1,"1",1);
+	else
+		write(1,"0",1);
 }
 
 
