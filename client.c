@@ -35,7 +35,7 @@ void send_signal(unsigned char c,pid_t pid)
 		else
 		kill(pid,SIGUSR2);
 		digit--;
-		usleep(500);
+		usleep(150);
 	}
 
 	digit = 7;
@@ -57,7 +57,6 @@ int	main(int ac, char **av)
 	pid_t pid;
 
 	pid = (pid_t)atoi(av[1]);
-	// printf("%d",pid);
 	if(ac != 3)
 	{
 		write(1,"error. please input : ./client PID XXXX\n",40);
