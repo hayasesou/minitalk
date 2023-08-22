@@ -1,35 +1,51 @@
 NAME = minitalk
+CFLAGS = -Wall -Wextra -Werror
 SERVER = server
 CLIENT = client
-CFLAGS = -Wall -Wextra -Werror 
-CC = cc
-SRCS = server.c client.c
-OBJS = $(SRCS:.c=.o) 
+INCLUDE = -I $(LIBFT_DIR)
+LDFLAGS = -L $(LIBFT_DIR) -l $(LIBFT)
+SERVER_MSRC = server.c
+CLIENT_MSRC = client.c
+SERVER_BSRC = server_bonus.c
+CLIENT_BSRC = client_bonus.c
+LIBFT_DIR = libft
+LIBFT = ft
 
-BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c\
-		ft_lstiter.c ft_lstmap.c
-
-BONUS_OBJS = $(BONUS:.c=.o)
-
-ifdef WITH_BONUS
-	OBJS += $(BONUS_OBJS)
+ifdef is_bonus
+	SERVER_OBJ = $(SERVER_BSRC:.c=.o)
+	CLIENT_OBJ = $(CLIENT_BSRC:.c=.o)
+else
+	SERVER_OBJ = $(SERVER_MSRC:.c=.o)
+	CLIENT_OBJ = $(CLIENT_MSRC:.c=.o)
 endif
 
-all : $(NAME)
+all: $(NAME)
 
-$(NAME) : $(OBJS)
-	ar rc $(NAME) $(OBJS)
+$(NAME):
+	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) $(SERVER)
+	$(MAKE) $(CLIENT)
 
-.c.o :
-	$(CC) $(CFLAGS) -c $< -o $@
+$(SERVER): $(SERVER_OBJ)
+	$(CC) $(CFLAGS) $(INCLUDE) $(LDFLAGS) $(SERVER_OBJ) -o $@
 
-clean :
-	rm -f $(OBJS) $(BONUS_OBJS)
+$(CLIENT): $(CLIENT_OBJ)
+	$(CC) $(CFLAGS) $(INCLUDE) $(LDFLAGS) $(CLIENT_OBJ) -o $@
 
-fclean : clean
-	rm -f $(NAME)
+bonus:
+	$(MAKE) is_bonus=1
 
-re : fclean all
+.c.o:
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-bonus : 
-	make WITH_BONUS=1
+clean:
+	$(MAKE) -C $(LIBFT_DIR) clean
+	$(RM) $(SERVER_MSRC:.c=.o) $(SERVER_BSRC:.c=.o) $(CLIENT_MSRC:.c=.o) $(CLIENT_BSRC:.c=.o)
+
+fclean: clean
+	make -C $(LIBFT_DIR) fclean
+	$(RM) $(SERVER) $(CLIENT)
+
+re: fclean all
+
+.PHONY: bonus clean fclean re all
