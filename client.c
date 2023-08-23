@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 12:59:02 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/08/23 13:51:42 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:58:38 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	send_signal(unsigned char c, pid_t pid)
 			;
 		g_signal_success = 0;
 	}
-	digit = 7;
 }
 
 static void	send_char(char *str, pid_t pid)
