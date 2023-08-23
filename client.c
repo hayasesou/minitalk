@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include "libft.h"
 
-void	send_signal(unsigned char c,pid_t pid)
+void	send_signal(unsigned char c, pid_t pid)
 {
 	int	digit;
 
@@ -11,13 +11,24 @@ void	send_signal(unsigned char c,pid_t pid)
 	while (digit >= 0)
 	{
 		if ((c >> digit) & 0x01)
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+			{
+				write (1, "error. SIGUSR1", 14);
+				exit(0);
+			}
+		}
 		else
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) == -1)
+			{
+				write (1, "error. SIGUSR2", 14);
+				exit(0);
+			}
+		}
 		digit--;
 		usleep(150);
 	}
-
 	digit = 7;
 }
 
@@ -41,12 +52,12 @@ int	main(int ac, char **av)
 	if (pid < 100 || pid > 99998)
 	{
 		write (1, "error. invalid PID\n", 19);
-		return (1);
+		return (-1);
 	}
 	if (ac != 3)
 	{
 		write (1, "error. please input : ./client PID XXXX\n", 40);
-		return (1);
+		return (-1);
 	}
 	send_char(av[2],pid);
 	return (0);

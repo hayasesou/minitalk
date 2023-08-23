@@ -11,14 +11,14 @@ void handler(int signum, siginfo_t *client, void *con)
 	(void)client;
 	(void)con;
 
-	if(signum == SIGUSR1 || signum == SIGUSR2)
+	if (signum == SIGUSR1 || signum == SIGUSR2)
 	{
 	if (signum == SIGUSR1)
 		c = (1 << bit_counter) | c;
-	if(bit_counter == 0)
+	if (bit_counter == 0)
 	{
-		write(1,&c,1);
-		bit_counter =7;
+		write (1, &c, 1);
+		bit_counter = 7;
 		c = 0b00000000;
 	}
 	else
@@ -28,8 +28,8 @@ void handler(int signum, siginfo_t *client, void *con)
 
 int main ()
 {
-	pid_t	pid;
-	struct sigaction sa;
+	pid_t				pid;
+	struct sigaction	sa;
 
 	pid = getpid();
 	write(1,"pid = [",7);
@@ -39,10 +39,10 @@ int main ()
 	memset(&sa,0,sizeof(struct sigaction));
 	sigemptyset(&sa.sa_mask);
 	sa.sa_sigaction = handler;
-	sa.sa_flags =SA_SIGINFO; 
-	sigaction(SIGUSR1,&sa,NULL);
-	sigaction(SIGUSR2,&sa,NULL);
-	
+	sa.sa_flags = SA_SIGINFO; 
+	sigaction (SIGUSR1, &sa, NULL);
+	sigaction (SIGUSR2, &sa, NULL);
+
 	while(1)
 	pause();
 }
