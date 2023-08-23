@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/23 12:59:02 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/08/23 13:51:42 by hfukushi         ###   ########.fr       */
+/*   Created: 2023/08/23 13:50:28 by hfukushi          #+#    #+#             */
+/*   Updated: 2023/08/23 13:50:31 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	handler(int signum, siginfo_t *server, void *con)
 	if (signum == SIGUSR1)
 	{
 		g_signal_success = 1;
+		write(1, "ACK\n", 4);
 	}
 }
 
