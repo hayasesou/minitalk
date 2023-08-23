@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 12:59:02 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/08/23 15:15:30 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:58:38 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	send_signal(unsigned char c, pid_t pid)
 			;
 		g_signal_success = 0;
 	}
-	digit = 7;
 }
 
 static void	send_char(char *str, pid_t pid)
@@ -71,7 +70,7 @@ int	main(int ac, char **av)
 	pid_t					pid;
 	struct sigaction		client_sa;
 
-	pid = (pid_t)ft_atoi(av[1] );
+	pid = (pid_t)ft_atoi(av[1]);
 	if (pid < 100 || pid > 99998)
 	{
 		write(1, "error. invalid PID\n", 19);
@@ -89,5 +88,7 @@ int	main(int ac, char **av)
 	sigaction(SIGUSR1, &client_sa, NULL);
 	sigaction(SIGUSR2, &client_sa, NULL);
 	send_char(av[2], pid);
+	while (1)
+		pause();
 	return (0);
 }
