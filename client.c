@@ -3,13 +3,29 @@
 #include <unistd.h>
 #include "libft.h"
 
-void	send_signal(unsigned char c, pid_t pid)
+int signal_success = 1;
+
+void handler(int signum, siginfo_t *server, void *con)
+{
+	(void)server;
+	(void)con;
+
+	if(signum == SIGUSR1 )
+	{
+		signal_success = 1;
+		write(1,"0",1);
+	}
+}
+
+
+static void	send_signal(unsigned char c, pid_t pid)
 {
 	int	digit;
 
 	digit = 7;
 	while (digit >= 0)
 	{
+		usleep(150);
 		if ((c >> digit) & 0x01)
 		{
 			if (kill(pid, SIGUSR1) == -1)
@@ -26,13 +42,14 @@ void	send_signal(unsigned char c, pid_t pid)
 				exit(0);
 			}
 		}
+		signal_success = 0;
 		digit--;
-		usleep(150);
 	}
 	digit = 7;
+	write(1,"1",1);
 }
 
-void	send_char(char *str, pid_t pid)
+static void	send_char(char *str, pid_t pid)
 {
 	unsigned char	c;
 
@@ -42,11 +59,13 @@ void	send_char(char *str, pid_t pid)
 		send_signal(c, pid);
 		str++;
 	}
+	exit(1);
 }
 
 int	main(int ac, char **av)
 {
 	pid_t	pid;
+	struct  sigaction client_sa;
 
 	pid = (pid_t)ft_atoi(av[1]);
 	if (pid < 100 || pid > 99998)
@@ -59,6 +78,16 @@ int	main(int ac, char **av)
 		write (1, "error. please input : ./client PID XXXX\n", 40);
 		return (-1);
 	}
+	ft_memset(&client_sa, 0, sizeof(struct sigaction));
+	sigemptyset(&client_sa.sa_mask);
+	client_sa.sa_sigaction = handler;
+	client_sa.sa_flags = SA_SIGINFO; 
+	sigaction (SIGUSR1, &client_sa, NULL);
+	sigaction (SIGUSR2, &client_sa, NULL);
 	send_char(av[2],pid);
+	while(1)
+	{
+	pause();
+	}
 	return (0);
 }
