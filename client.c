@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 12:59:02 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/08/23 15:58:38 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:14:24 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ void	handler(int signum, siginfo_t *server, void *con)
 	if (signum == SIGUSR1)
 	{
 		g_signal_success = 1;
+	}
+}
+
+void	timeout(void)
+{
+	long	count;
+
+	count = 0;
+	while (g_signal_success == 0)
+	{
+		usleep(1);
+		count++;
+		if (count > 1000000)
+			exit (1);
 	}
 }
 
@@ -46,8 +60,7 @@ static void	send_signal(unsigned char c, pid_t pid)
 				exit(1);
 		}
 		digit--;
-		while (g_signal_success == 0)
-			;
+		timeout();
 		g_signal_success = 0;
 	}
 }
