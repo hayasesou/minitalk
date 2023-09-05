@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 12:59:02 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/08/30 15:14:24 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:44:32 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,15 @@ int	main(int ac, char **av)
 	pid_t					pid;
 	struct sigaction		client_sa;
 
+	if (ac != 3)
+	{
+		write(1, "error. please input : ./client PID XXXX\n", 40);
+		return (-1);
+	}
 	pid = (pid_t)ft_atoi(av[1]);
 	if (pid < 100 || pid > 99998)
 	{
 		write(1, "error. invalid PID\n", 19);
-		return (-1);
-	}
-	if (ac != 3)
-	{
-		write(1, "error. please input : ./client PID XXXX\n", 40);
 		return (-1);
 	}
 	ft_memset(&client_sa, 0, sizeof(struct sigaction));
