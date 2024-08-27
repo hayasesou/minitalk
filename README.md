@@ -1,7 +1,9 @@
 # Minitalk
 
 Minitalk is a small data exchange program using UNIX signals.
+
 ![minitalk](https://github.com/user-attachments/assets/7e7b134f-d746-4992-aead-ef679a35e352)
+
 ## Description
 
 This project involves creating a communication program in the form of a client and server. The server must be launched first and print its PID. The client takes two parameters:
