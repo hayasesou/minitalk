@@ -2,7 +2,7 @@
 
 Minitalk is a small data exchange program using UNIX signals.
 
-![minitalk](https://github.com/user-attachments/assets/7e7b134f-d746-4992-aead-ef679a35e352)
+![minitalk demo](https://github.com/user-attachments/assets/be77ed7c-e145-4a56-b90b-52b11d2a3c56)
 
 ## Description
 
