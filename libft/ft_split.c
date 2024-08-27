@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:25:11 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/08/22 17:59:32 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:43:41 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ static char	**create2darray(char **ret, char *s, char d)
 char	**ft_split(char const *s, char c)
 {
 	char		**ret;
-	int			i;
 	size_t		count;
 
 	if (s == NULL)
@@ -100,7 +99,6 @@ char	**ft_split(char const *s, char c)
 	ret = (char **)ft_calloc(count, sizeof(char *));
 	if (ret == NULL)
 		return (NULL);
-	i = 0;
 	ret = create2darray(ret, (char *)s, c);
 	return (ret);
 }

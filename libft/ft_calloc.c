@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:50:16 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/06/12 13:29:57 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:18:02 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	*ft_calloc(size_t count, size_t size)
 {
 	size_t	*p;
-	size_t	i;
 
-	i = 0;
 	if (size > 0 && count > SIZE_MAX / size)
 		return (NULL);
 	p = (void *)malloc(size * count);

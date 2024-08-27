@@ -27,10 +27,10 @@ $(NAME):
 	$(MAKE) $(CLIENT)
 
 $(SERVER): $(SERVER_OBJ)
-	$(CC) $(CFLAGS) $(INCLUDE) $(LDFLAGS) $(SERVER_OBJ) -o $@
+	$(CC) $(CFLAGS) $(INCLUDE)  $(SERVER_OBJ) -o $@ $(LDFLAGS)
 
 $(CLIENT): $(CLIENT_OBJ)
-	$(CC) $(CFLAGS) $(INCLUDE) $(LDFLAGS) $(CLIENT_OBJ) -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) $(CLIENT_OBJ) -o $@ $(LDFLAGS)
 
 bonus:
 	$(MAKE) is_bonus=1

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <libc.h>
 #include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
